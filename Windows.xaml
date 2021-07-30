@@ -1,0 +1,461 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WpfApp1.Windows"
+        mc:Ignorable="d"
+        Title="Оценка качества макарон" Height="720" Width="1024" WindowStyle="None" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" FontFamily="Times New Roman" FontSize="20">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF2E7DB" Offset="0.497"/>
+            <GradientStop Color="#FFE4CCAF" Offset="1"/>
+            <GradientStop Color="DarkOrange"/>
+            <GradientStop Color="#FFE4CCAF" Offset="0.094"/>
+            <GradientStop Color="DarkOrange" Offset="0.092"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid Name="ToolBar" Background="Transparent" Grid.Row="0" MouseDown="ToolBar_MouseDown">
+                <Image Margin="10,0,0,0" Source="Img\Эмблема_.png" HorizontalAlignment="Left"/>
+                <Label Content="Оценка качества макарон" FontWeight="Bold" Margin="100,0,0,0" FontSize="22"/>
+                <Polygon Fill="#9b2d30" Opacity="0.6" Points="80, 0, 115, 16, 249, 16, 249, 16, 280, 0" 
+                     HorizontalAlignment="Center" Margin="0,0,85,0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Name="MinButton" Height="30" Width="30" Margin="0, 0, 0, 0" MouseDown="MinButton_MouseDown">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Img/Палка не активная 2.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=MinButton}" Value="True">
+                                        <Setter Property="Source" Value="Img/Палка активная 2.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                        <Image.Effect>
+                            <BlurEffect Radius="1"/>
+                        </Image.Effect>
+                    </Image>
+                    <Image Name="KrestButton" Height="30" Width="30" Margin="2, 0, 5, 0" MouseDown="KrestButton_MouseDown">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Img/Крестик не активная 2.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=KrestButton}" Value="True">
+                                        <Setter Property="Source" Value="Img/Крестик активная 2.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                        <Image.Effect>
+                            <BlurEffect Radius="1"/>
+                        </Image.Effect>
+                    </Image>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <TabControl>
+                <TabControl.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFF2E7DB" Offset="0.497"/>
+                        <GradientStop Color="#FFE4CCAF" Offset="1"/>
+                        <GradientStop Color="DarkOrange" Offset="0"/>
+                        <GradientStop Color="#FFE4CCAF" Offset="0"/>
+                    </LinearGradientBrush>
+                </TabControl.Background>
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,0"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Panel" Property="Background" Value="yellow" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Panel" Property="Background" Value="gold" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="Ввод образцов" x:Name="Obraz" Background="#FFFFBA67">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="370"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <TextBlock Text="Бально-рейтинговая оцека показателей качества смесей" FontSize="24" Height="30" Width="620" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                        FontWeight="Bold" Margin="0,25,0,0"/>
+                            <TextBlock Text="№ Образца:" FontSize="24" Height="30" Width="135" FontWeight="Bold" Margin="78,85,805,245"/>
+                            <TextBlock Text="Внешний вид:" FontSize="24" Width="155" Height="30" FontWeight="Bold" Margin="298,85,565,245"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="503,85,435,245"/>
+                            <TextBlock Text="Вкус:" FontSize="24" Height="30" Width="60" FontWeight="Bold" Margin="810,85,148,245"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="921,85,17,245"/>
+                            <TextBlock Text="Цвет:" FontSize="24" Height="30" Width="60" FontWeight="Bold" Margin="92,134,866,196"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="203,134,735,196"/>
+                            <TextBlock Text="Запах:" FontSize="24" Height="30" Width="70" FontWeight="Bold" Margin="597,85,351,245"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="717,83,221,247"/>
+                            <TextBlock Text="Сухое вещество, перешедшее в варочную воду:" FontSize="24" Height="30" Width="510" FontWeight="Bold" Margin="298,134,210,196"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="858,134,80,196"/>
+                            <TextBlock Text="Сохранность формы сваренных изделий:" FontSize="24" Height="30" FontWeight="Bold" Width="450" Margin="189,181,379,149"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="689,181,249,149"/>
+                            <TextBlock Text="Прочность сваренных изделий:" FontSize="24" Height="30" Width="345" FontWeight="Black" Margin="245,228,428,102"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="639,228,299,102"/>
+                            <TextBox x:Name="TB_Obr" PreviewTextInput="TB_KeyPress_Nomer" Height="30" Width="50" VerticalAlignment="Center" 
+                                        Margin="215,85,753,245" FontSize="22" PreviewKeyDown="TB_KeyPressDown_Nomer"/>
+                            <TextBox x:Name="TB_Vn_vid" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="456,85,517,245" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_zapax" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="670,85,303,245" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_Vkyc" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="874,85,99,245" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_Color" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="156,134,817,196" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_CBPBBB" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="811,134,162,196" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_CFCU" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="642,181,331,149" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_PCU" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                        Margin="593,228,380,102" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <DataGrid x:Name="WPFDataGrid" Width="auto" FontSize="18" IsReadOnly="True" Margin="0,-88,0,56">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№" Width="50" Binding="{Binding CollectionRows_Obr}"/>
+                                    <DataGridTextColumn Header="Внешний вид" Width="130" Binding="{Binding CollectionRows_Vn_Vid}"/>
+                                    <DataGridTextColumn Header="Запах" Width="60" Binding="{Binding CollectionRows_Zapax}"/>
+                                    <DataGridTextColumn Header="Вкус" Width="60" Binding="{Binding CollectionRows_Vkyc}"/>
+                                    <DataGridTextColumn Header="Цвет" Width="60" Binding="{Binding CollectionRows_Color}"/>
+                                    <DataGridTextColumn Header="Сухое вещество, перешедшее в варочную воду" Width="180" Binding="{Binding CollectionRows_CBPBBB}"/>
+                                    <DataGridTextColumn Header="Сохранность формы сваренных изделий" Width="180" Binding="{Binding CollectionRows_CFCU}"/>
+                                    <DataGridTextColumn Header="Прочность сваренных изделий" Width="*" Binding="{Binding CollectionRows_PCU}"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FFB4B4B4"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Height" Value="90"/>
+                                        <Setter Property="FixedPage.IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Setters>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        </Style.Setters>
+                                    </Style>
+                                </DataGrid.Resources>
+                            </DataGrid>
+                            <Button Style="{StaticResource StyleButton_Page1_добавить}" Height="30" Content="Добавить строку" FontSize="22"
+                    Background="#FFFF9C24" Click="Button_Click" VerticalAlignment="Center" Margin="399,230,399,10" Width="220"/>
+                            <Button Style="{StaticResource StyleButton_Page1_удалить}" Height="30" Content="Удалить строку" FontSize="22"
+                    Background="#FFFF9C24" Margin="174,230,624,10" Width="220" VerticalAlignment="Center" Click="Button_Click_2"/>
+                            <Button Style="{StaticResource StyleButton_Page1_изменить}" Height="30" Content="Изменить строку" FontSize="22"
+                    Background="#FFFF9C24" Margin="624,230,174,10" Width="220" VerticalAlignment="Center" Click="Button_Click_3"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Ввод контрольных оценок" x:Name="GOST" Height="23" VerticalAlignment="Bottom">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="370"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <TextBlock Text="Введите контрольные оценки по показателям" FontSize="24" Height="30" Width="500" VerticalAlignment="Top"
+                                        HorizontalAlignment="Center" FontWeight="Bold" Margin="0,30,0,0"/>
+                            <TextBlock Text="Внешний вид:" FontSize="24" Width="155" Height="30" FontWeight="Bold" Margin="35,86,828,244"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="240,86,698,244"/>
+                            <TextBlock Text="Вкус:" FontSize="24" Height="30" Width="60" FontWeight="Bold" Margin="547,86,411,244"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="658,86,280,244"/>
+                            <TextBlock Text="Цвет:" FontSize="24" Height="30" Width="60" FontWeight="Bold" Margin="757,86,201,244"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="868,86,70,244"/>
+                            <TextBlock Text="Запах:" FontSize="24" Height="30" Width="70" FontWeight="Bold" Margin="334,86,614,244"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="454,84,484,246"/>
+                            <TextBlock Text="Сухое вещество, перешедшее в варочную воду:" FontSize="24" Height="30" Width="510" FontWeight="Bold" Margin="193,135,315,195"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="753,135,185,195"/>
+                            <TextBlock Text="Сохранность формы сваренных изделий:" FontSize="24" Height="30" FontWeight="Bold" Width="450" Margin="210,182,358,148"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="710,182,228,148"/>
+                            <TextBlock Text="Прочность сваренных изделий:" FontSize="24" Height="30" Width="345" FontWeight="Black" Margin="245,228,428,102"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="639,228,299,102"/>
+                            <!--TextBlock Text="Разжевываемость мякиша:" FontSize="24" Height="30" Width="300" FontWeight="Bold" Margin="530,228,188,102"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="880,228,58,102"/>
+                            <TextBlock Text="Реологические свойства мякиша:" FontSize="24" Height="30" Width="370" FontWeight="Bold" Margin="34,274,614,56"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="454,274,484,56"/>
+                            <TextBlock Text="Структура пористости:" FontSize="24" Height="30" Width="260" FontWeight="Bold" Margin="558,274,200,56"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="868,274,70,56"/>
+                            <TextBlock Text="Окраска окорока:" FontSize="24" Height="30" Width="200" FontWeight="Bold" Margin="334,317,484,13"/>
+                            <TextBlock Text="баллов" FontSize="24" Height="30" Width="80" Margin="584,317,354,13"/-->
+                            <TextBox x:Name="TB_Vn_vid1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="193,86,780,244" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_zapax1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="407,86,566,244" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_Vkyc1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="611,86,362,244" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_Color1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="821,86,152,244" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_CBPBBB1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="706,135,267,195" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_CFCU1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="663,182,310,148" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                            <TextBox x:Name="TB_PCU1" PreviewTextInput="TB_KeyPress_Another" Width="45" Height="30" VerticalAlignment="Center" 
+                                    Margin="593,228,380,102" FontSize="22" PreviewKeyDown="TB_KeyPressDown"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <DataGrid x:Name="WPFDataGrid1" Width="auto" FontSize="18" IsReadOnly="True" Margin="0,-88,0,0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№" Width="50" Binding="{Binding CollectionRows_Obr}"/>
+                                    <DataGridTextColumn Header="Внешний вид" Width="130" Binding="{Binding CollectionRows_Vn_Vid}"/>
+                                    <DataGridTextColumn Header="Запах" Width="60" Binding="{Binding CollectionRows_Zapax}"/>
+                                    <DataGridTextColumn Header="Вкус" Width="60" Binding="{Binding CollectionRows_Vkyc}"/>
+                                    <DataGridTextColumn Header="Цвет" Width="60" Binding="{Binding CollectionRows_Color}"/>
+                                    <DataGridTextColumn Header="Сухое вещество, перешедшее в варочную воду" Width="180" Binding="{Binding CollectionRows_CBPBBB}"/>
+                                    <DataGridTextColumn Header="Сохранность формы сваренных изделий" Width="180" Binding="{Binding CollectionRows_CFCU}"/>
+                                    <DataGridTextColumn Header="Прочность сваренных изделий" Width="*" Binding="{Binding CollectionRows_PCU}"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FFB4B4B4"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Height" Value="90"/>
+                                        <Setter Property="FixedPage.IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Setters>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        </Style.Setters>
+                                    </Style>
+                                </DataGrid.Resources>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Метрики" x:Name="Metriki">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,0">
+                            <TextBlock Text="Отметьте галочкой меру, по которой будут производиться расчеты" 
+                       VerticalAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"
+                       TextAlignment="Center" FontWeight="Bold" Width="700" FontSize="42"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <StackPanel Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox HorizontalAlignment="Left">
+                                    <CheckBox x:Name="KMCNMP" Margin="5" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                          Content="Квадратичная мера сходства N-мерного пространства"/>
+                                </Viewbox>
+                                <Viewbox Width="560" HorizontalAlignment="Left">
+                                    <CheckBox x:Name="KMC" Margin="5" HorizontalContentAlignment="Left" Content="Квадратичная мера сходства"
+                          VerticalContentAlignment="Center">
+                                    </CheckBox>
+                                </Viewbox>
+                                <Viewbox Width="510" HorizontalAlignment="Left">
+                                    <CheckBox x:Name="MMC" Margin="5" HorizontalContentAlignment="Left" Content="Модульная мера сходства"
+                          VerticalContentAlignment="Center">
+                                    </CheckBox>
+                                </Viewbox>
+                                <Viewbox Width="800" HorizontalAlignment="Left">
+                                    <CheckBox x:Name="KKK" Margin="5" HorizontalContentAlignment="Left" Content="Классический коэффициент корреляции"
+                          VerticalContentAlignment="Center">
+                                    </CheckBox>
+                                </Viewbox>
+                                <Viewbox Width="830" HorizontalAlignment="Left">
+                                    <CheckBox x:Name="KKYMB" Margin="5" HorizontalContentAlignment="Left" Content="Квадрат косинуса угла между векторами"
+                          VerticalContentAlignment="Center">
+                                    </CheckBox>
+                                </Viewbox>
+                                <Viewbox Width="930" HorizontalAlignment="Left">
+                                    <CheckBox x:Name="MKK" Margin="5" HorizontalContentAlignment="Left" Content="Модифицированный коэффициент корреляции"
+                          VerticalContentAlignment="Center">
+                                    </CheckBox>
+                                </Viewbox>
+                                <Viewbox Width="540" HorizontalAlignment="Left">
+                                    <CheckBox x:Name="KK" Margin="5" HorizontalContentAlignment="Left" Content="Коэффициент корреляции"
+                          VerticalContentAlignment="Center">
+                                    </CheckBox>
+                                </Viewbox>
+                            </StackPanel>
+                            <Button Style="{StaticResource StyleButton_Выделить_все}" Height="30" Content="Выделить все" FontSize="22"
+                    Background="#FFFF9C24" Click="Button_Click_4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="220"
+                                    Margin="0,0,4,4"/>
+                            <Button Style="{StaticResource StyleButton_Снять_все}" Height="30" Content="Снять все" FontSize="22"
+                    Background="#FFFF9C24" Click="Button_Click_5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="220"
+                                    Margin="0,0,234,4"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Результаты">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="180"/>
+                            <RowDefinition Height="240"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="15,0,15,0">
+                            <TextBlock x:Name="Text_Block" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,5"
+                       Text="Контрольные оценки по показателям: " TextWrapping="Wrap" FontSize="32"/>
+                            <DataGrid x:Name="WPFDataGrid_pokazat" Height="116" Width="auto" FontSize="18" IsReadOnly="True" Margin="-5,30,0,0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Внешний вид" Width="120" Binding="{Binding CollectionRows_Vn_Vid}"/>
+                                    <DataGridTextColumn Header="Запах" Width="60" Binding="{Binding CollectionRows_Zapax}"/>
+                                    <DataGridTextColumn Header="Вкус" Width="60" Binding="{Binding CollectionRows_Vkyc}"/>
+                                    <DataGridTextColumn Header="Цвет" Width="60" Binding="{Binding CollectionRows_Color}"/>
+                                    <DataGridTextColumn Header="Сухое вещество, перешедшее в варочную воду" Width="160" Binding="{Binding CollectionRows_CBPBBB}"/>
+                                    <DataGridTextColumn Header="Сохранность формы сваренных изделий" Width="200" Binding="{Binding CollectionRows_CFCU}"/>
+                                    <DataGridTextColumn Header="Прочность сваренных изделий" Width="*" Binding="{Binding CollectionRows_PCU}"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FFB4B4B4"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Height" Value="90"/>
+                                        <Setter Property="FixedPage.IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Setters>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        </Style.Setters>
+                                    </Style>
+                                </DataGrid.Resources>
+                            </DataGrid>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="Результаты расчетов:" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="32" Margin="0,0,0,0"/>
+                            <DataGrid x:Name="WPFDataGrid_result" Width="auto" FontSize="18" IsReadOnly="True" Margin="10,45,15,27">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Наименование метрики" Width="600" Binding="{Binding CollectionRowsResult_Name_metrika}"/>
+                                    <DataGridTextColumn Header="№ образца" Width="200" Binding="{Binding CollectionRowsResult_Nomer_obr}"/>
+                                    <DataGridTextColumn Header="Результат" Width="*" Binding="{Binding CollectionRowsResult_Result}"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FFB4B4B4"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Height" Value="40"/>
+                                        <Setter Property="FixedPage.IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Setters>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        </Style.Setters>
+                                    </Style>
+                                </DataGrid.Resources>
+                            </DataGrid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <DataGrid x:Name="WPFDataGrid_obraz" Height="180" Width="auto" FontSize="18" IsReadOnly="True" Margin="0,0,0,0" VerticalAlignment="Top"
+                                      EnableRowVirtualization="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№" Width="50" Binding="{Binding CollectionRows_Obr}"/>
+                                    <DataGridTextColumn Header="Внешний вид" Width="130" Binding="{Binding CollectionRows_Vn_Vid}"/>
+                                    <DataGridTextColumn Header="Запах" Width="60" Binding="{Binding CollectionRows_Zapax}"/>
+                                    <DataGridTextColumn Header="Вкус" Width="60" Binding="{Binding CollectionRows_Vkyc}"/>
+                                    <DataGridTextColumn Header="Цвет" Width="60" Binding="{Binding CollectionRows_Color}"/>
+                                    <DataGridTextColumn Header="Сухое вещество, перешедшее в варочную воду" Width="180" Binding="{Binding CollectionRows_CBPBBB}"/>
+                                    <DataGridTextColumn Header="Сохранность формы сваренных изделий" Width="180" Binding="{Binding CollectionRows_CFCU}"/>
+                                    <DataGridTextColumn Header="Прочность сваренных изделий" Width="*" Binding="{Binding CollectionRows_PCU}"/>
+                                </DataGrid.Columns>
+                                <DataGrid.ItemContainerStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding покраска}" Value="1">
+                                                <Setter Property="Background" Value="#FF009600"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.ItemContainerStyle>
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FFB4B4B4"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Height" Value="90"/>
+                                        <Setter Property="FixedPage.IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Setters>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        </Style.Setters>
+                                    </Style>
+                                </DataGrid.Resources>
+                            </DataGrid>
+                            <Button x:Name="Назад" Style="{StaticResource StyleButton_Page2_назад}" HorizontalAlignment="Right" 
+                    VerticalAlignment="Bottom" Width="140" Height="30" Content="Рассчитать" FontSize="22" 
+                    Background="#FFFF9C24" Margin="0,0,12,4" Click="Рассчитать"/>
+                            <Button x:Name="Сохранить" Style="{StaticResource StyleButton_Page2_Сохранить}" HorizontalAlignment="Center" 
+                    VerticalAlignment="Bottom" Width="130" Height="30" Content="Сохранить" FontSize="22" 
+                    Background="#FFFF9C24" Margin="444,0,444,4" Click="Сохранить_в_ексель"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

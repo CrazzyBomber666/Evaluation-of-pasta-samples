@@ -1,0 +1,96 @@
+﻿<Window x:Class="WpfApp1.Error"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Error" Height="200" Width="550" WindowStyle="None" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" FontFamily="Times New Roman">
+    <Window.Resources>
+        <Style x:Key="StyleButton_okey" TargetType="Button">
+            <Setter Property="BorderBrush" Value="#9b2d30"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="25" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.100" To="0,0,28,5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.100" To="0,0,30,7"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF2E7DB" Offset="0.497"/>
+            <GradientStop Color="#FFE4CCAF" Offset="0.75"/>
+            <GradientStop Color="DarkOrange"/>
+            <GradientStop Color="#FFE4CCAF" Offset="0.193"/>
+            <GradientStop Color="DarkOrange" Offset="0.178"/>
+            <GradientStop Color="#FFFFBB69" Offset="0.757"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="ToolBar" Background="Transparent" Grid.Row="0" MouseDown="ToolBar_MouseDown">
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Content="Ошибка № 24"
+                   FontWeight="Bold" Margin="5,2,0,0" x:Name="Titlee"></Label>
+            <Polygon Fill="#9b2d30" Opacity="0.6" Points="80, 0, 115, 16, 249, 16, 249, 16, 280, 0" 
+                     Margin="92,0,118,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Image Name="KrestButton" Height="40" Width="40" Margin="2, 0, 5, 0" MouseDown="KrestButton_MouseDown">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="Img/Крестик не активная 2.png"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=KrestButton}" Value="True">
+                                    <Setter Property="Source" Value="Img/Крестик активная 2.png"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                    <Image.Effect>
+                        <BlurEffect Radius="1"/>
+                    </Image.Effect>
+                </Image>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <TextBlock FontSize="24" Text="" Margin="12,20,3,5" x:Name="messagee"
+                       TextWrapping="WrapWithOverflow">
+            </TextBlock>
+            <Button FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Окей"
+                    Margin="0,0,30,7" Width="120" Style="{StaticResource StyleButton_okey}"
+                    Background="#FFFF9C24" Click="Button_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>
